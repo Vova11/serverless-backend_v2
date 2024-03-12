@@ -55,7 +55,7 @@ async function handler(
     }
     return {
       statusCode: 500,
-      body: JSON.stringify(error.message),
+      body: JSON.stringify('Caught an unknown error:', error.message),
     }
   }
 

@@ -39,10 +39,11 @@ import { handler } from '../src/services/products/handler'
 //   },
 // } as any)
 
-//POST
+//  POST
 // handler({
 //   httpMethod: 'POST', 
 //   body: JSON.stringify({
+//     title: 'Product 9',
 //     description: "Description of product 6",
 //     price: "8.9",
 //     featured: "1"
