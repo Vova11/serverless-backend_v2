@@ -1,0 +1,27 @@
+
+@url = https://n1ng6nhfb2.execute-api.eu-central-1.amazonaws.com/prod
+
+GET {{url}}/products
+###
+
+POST {{url}}/products
+content-type: application/json
+
+ {
+    "title": "Produkt 3",
+    "description": "Description of product 3",
+    "price": "11",
+    "featured": "1"
+ }
+###
+
+PUT {{url}}/products?id=b7d44b43-5ecc-4f9f-88e1-844994c8a829
+content-type: application/json
+
+ {
+    "price": "345"
+ }
+###
+
+DELETE {{url}}/products?id=b7d44b43-5ecc-4f9f-88e1-844994c8a829
+###
