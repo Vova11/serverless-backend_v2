@@ -2,6 +2,7 @@ import { App } from 'aws-cdk-lib'
 import { LambdaStack } from '../infra/stacks/LambdaStack'
 import { ApiStack } from './stacks/ApiStack'
 import { DataStack } from './stacks/DataStack'
+import { AuthStack } from './stacks/AuthStack'
 
 const app = new App()
 const dataStack = new DataStack(app, 'DataStack')
@@ -12,3 +13,4 @@ new ApiStack(app, 'ApiStack', {
   helloLambdaIntegration: lambdaStack.helloLambdaIntegration,
   productsLambdaIntegration: lambdaStack.productsLambdaIntegration
 })
+const authStack = new AuthStack(app, 'AuthStack')
