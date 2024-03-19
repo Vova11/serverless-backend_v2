@@ -1,18 +1,23 @@
 
-@url = https://n1ng6nhfb2.execute-api.eu-central-1.amazonaws.com/prod
-
+@url = https://dot69jknac.execute-api.eu-central-1.amazonaws.com/prod/
+@token = eyJraWQiOiIxNHBNdkdqVnREZzNsV2R2RkJBTWFYeW9OMlk3Y0xBQTUyUkRDcDRueTJzPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI4MGVmMjdmZS03ZTY5LTQ2ZWUtYjE0NC1kMzQ2YzVlNDgwZDkiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLmV1LWNlbnRyYWwtMS5hbWF6b25hd3MuY29tXC9ldS1jZW50cmFsLTFfOFBsYW5DNFJTIiwiY29nbml0bzp1c2VybmFtZSI6IjgwZWYyN2ZlLTdlNjktNDZlZS1iMTQ0LWQzNDZjNWU0ODBkOSIsImdpdmVuX25hbWUiOiJWb3ZhIiwib3JpZ2luX2p0aSI6ImZiOTA0YjAxLWY3MTEtNDYxNi1iMWNjLTAwYTAwYzdiY2Y2NyIsImF1ZCI6ImlvcDNvYTJlbnVvOWgwbjlrNGVobmlkOXQiLCJldmVudF9pZCI6IjgxNGEwMGExLWJmNjAtNDQ5Ny04ZWIzLWM2ZWZlZDk1NzUyNiIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNzEwODM0MTM1LCJleHAiOjE3MTA4Mzc3MzUsImlhdCI6MTcxMDgzNDEzNSwiZmFtaWx5X25hbWUiOiJaZW0iLCJqdGkiOiJlMzc2NjA0ZS1hZWY0LTQ2NWUtOTZlZS00MWVlMTI3MDQ3MGQiLCJlbWFpbCI6ImxlbmlzMzMyMThAaGRybG9nLmNvbSJ9.h7TZbM4RoZ8e-vK5gDixlROuQFNAwPBmEJNUUl6T9W4_TpIu80aofAL5xkWIE96fkaVSimhHpL7fkWHuC9WS7c8JO-Cxyn0KDllTIBlna0fW5jftQEjAlY03JTvNJgyD7ukT3EDgA_EnmcxmOj3HcF37jax2BejKIKMq02vec6OMuyJil3dagJKMqiCPHWe_DEpzYtlHAJN9zDsm2MDZ8U01-NBuGqI2I_-0ccZH2OMmZN8bdyuDgfcidBdEKUz3NsVdjtrmkVcE3tQYVJJVCIChmnVhu8JpcVETuqcFvbf533fP1ru2odhO11Mr74xDIk9-e-QT3zlKuqflaNUBOQ
 GET {{url}}/products
 ###
 
 POST {{url}}/products
-content-type: application/json
+Authorization: {{token}}
+Content-Type: application/json
 
- {
-    "title": "Produkt 3",
-    "description": "Description of product 3",
-    "price": "11",
-    "featured": "1"
- }
+{
+  "title": "Produkt 1",
+  "description": "Description of product 1",
+  "price": 33.45,
+  "stock": 22,
+  "featured": 1,
+  "isOnStock": 1
+}
+//isOnStock 1 is on stock
+//featured 1 is on stock
 ###
 
 PUT {{url}}/products?id=b7d44b43-5ecc-4f9f-88e1-844994c8a829
