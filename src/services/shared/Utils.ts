@@ -13,3 +13,13 @@ export function parseJSON(arg: string) {
     throw new JsonError(error.message)
   }
 }
+
+export function hasAdminGroup(event: APIGatewayProxyEvent) {
+  // const groups = event.Authorization requestContext.authorizer?.claims['cognito:groups']
+  const groups = event.headers['Authorization']['payload']['cognito:groups']
+  
+  if (groups) {
+    return (groups as string).includes('admins')
+  }
+  return false
+}

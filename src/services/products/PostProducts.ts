@@ -10,6 +10,8 @@ export async function postProducts(
   ddbClient: DynamoDBClient
 ): Promise<APIGatewayProxyResult> {
   console.log('Calling create method!!!')
+  console.log(event);
+  
   const randomId = createRandomId()
   const product = parseJSON(event.body)
   product.id = randomId

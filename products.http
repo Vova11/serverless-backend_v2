@@ -1,18 +1,20 @@
 
-@url = https://dot69jknac.execute-api.eu-central-1.amazonaws.com/prod/
-@token = eyJraWQiOiIxNHBNdkdqVnREZzNsV2R2RkJBTWFYeW9OMlk3Y0xBQTUyUkRDcDRueTJzPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI4MGVmMjdmZS03ZTY5LTQ2ZWUtYjE0NC1kMzQ2YzVlNDgwZDkiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLmV1LWNlbnRyYWwtMS5hbWF6b25hd3MuY29tXC9ldS1jZW50cmFsLTFfOFBsYW5DNFJTIiwiY29nbml0bzp1c2VybmFtZSI6IjgwZWYyN2ZlLTdlNjktNDZlZS1iMTQ0LWQzNDZjNWU0ODBkOSIsImdpdmVuX25hbWUiOiJWb3ZhIiwib3JpZ2luX2p0aSI6ImZiOTA0YjAxLWY3MTEtNDYxNi1iMWNjLTAwYTAwYzdiY2Y2NyIsImF1ZCI6ImlvcDNvYTJlbnVvOWgwbjlrNGVobmlkOXQiLCJldmVudF9pZCI6IjgxNGEwMGExLWJmNjAtNDQ5Ny04ZWIzLWM2ZWZlZDk1NzUyNiIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNzEwODM0MTM1LCJleHAiOjE3MTA4Mzc3MzUsImlhdCI6MTcxMDgzNDEzNSwiZmFtaWx5X25hbWUiOiJaZW0iLCJqdGkiOiJlMzc2NjA0ZS1hZWY0LTQ2NWUtOTZlZS00MWVlMTI3MDQ3MGQiLCJlbWFpbCI6ImxlbmlzMzMyMThAaGRybG9nLmNvbSJ9.h7TZbM4RoZ8e-vK5gDixlROuQFNAwPBmEJNUUl6T9W4_TpIu80aofAL5xkWIE96fkaVSimhHpL7fkWHuC9WS7c8JO-Cxyn0KDllTIBlna0fW5jftQEjAlY03JTvNJgyD7ukT3EDgA_EnmcxmOj3HcF37jax2BejKIKMq02vec6OMuyJil3dagJKMqiCPHWe_DEpzYtlHAJN9zDsm2MDZ8U01-NBuGqI2I_-0ccZH2OMmZN8bdyuDgfcidBdEKUz3NsVdjtrmkVcE3tQYVJJVCIChmnVhu8JpcVETuqcFvbf533fP1ru2odhO11Mr74xDIk9-e-QT3zlKuqflaNUBOQ
+@url =  https://mux2b55cc3.execute-api.eu-central-1.amazonaws.com/prod/
+@id_token = eyJraWQiOiJ4OTczSEpweDlMSnlQb3k2RmY4ME9RQmtsRFFLc1dtcTlaK1p3cEdTeVF3PSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJjZDVlNGJmYi1hOGQxLTRkOTItYTgwNS04MzkxNWNiZGQ4OWYiLCJjb2duaXRvOmdyb3VwcyI6WyJhZG1pbnMiXSwiZW1haWxfdmVyaWZpZWQiOnRydWUsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC5ldS1jZW50cmFsLTEuYW1hem9uYXdzLmNvbVwvZXUtY2VudHJhbC0xX1FFdTNOdnE2RCIsImNvZ25pdG86dXNlcm5hbWUiOiJjZDVlNGJmYi1hOGQxLTRkOTItYTgwNS04MzkxNWNiZGQ4OWYiLCJnaXZlbl9uYW1lIjoiVm92YSIsIm9yaWdpbl9qdGkiOiI4MjhkNjA1ZS0yYzYxLTQwZWEtOWVmNC0yMmEwYmM0YjNjNTYiLCJhdWQiOiIzcXZqczQ0bWlhOHF0bW1nbzZsOWgyM3UxZSIsImV2ZW50X2lkIjoiZTA4YjBhYmMtNzc3Ni00NzU3LWFiMWUtZDhiOWZjMDE3NTZhIiwidG9rZW5fdXNlIjoiaWQiLCJhdXRoX3RpbWUiOjE3MTA5MzA1ODYsImV4cCI6MTcxMDkzNDE4NiwiaWF0IjoxNzEwOTMwNTg2LCJmYW1pbHlfbmFtZSI6IlplbSIsImp0aSI6ImUwM2YxYzIyLTU4N2MtNGIxZC05Y2Q2LWQ0ZjMxMTdjZWU3NCIsImVtYWlsIjoibGVuaXMzMzIxOEBoZHJsb2cuY29tIn0.EHlaSuxWiNkJTH9czgaZLO4Vj50qi0IJRL_xFlCs5N47QOEOMuFq3XL_cFfvcG4fXUnpC8mqbJ0-oHIK1aRSCKSJSDnojj1SNtfmui_5yB98VG7XIg2krU529KP1W2S8GrEgew8woXXhCEfCx-j8bJAbPjHa7CPTa6dnc82mpyviLvCnDlqHWcSWuh0y3Ikxpx95JU8BkQw8zLV1vIz3gSvF5YI4LBIfCSoT0YbypuRdeaWqsHhFnfpcINX8MzO7y44EdZtkMSpb_FqqylqgyXz7etrE8TNCg0OLOZc0YhCHMJ-VsqDafAmSn42Wly359NM8i8RrJ1Rrp3x18y-KaQ
+
 GET {{url}}/products
 ###
 
+///* Bellow is idToken token */
 POST {{url}}/products
-Authorization: {{token}}
+Authorization: {{id_token}}
 Content-Type: application/json
 
 {
-  "title": "Produkt 1",
-  "description": "Description of product 1",
-  "price": 33.45,
-  "stock": 22,
+  "title": "Produkt 11",
+  "description": "Des5ription of product 6",
+  "price": 3.10,
+  "stock": 2,
   "featured": 1,
   "isOnStock": 1
 }
@@ -20,7 +22,7 @@ Content-Type: application/json
 //featured 1 is on stock
 ###
 
-PUT {{url}}/products?id=b7d44b43-5ecc-4f9f-88e1-844994c8a829
+PUT {{url}}/products?id=7b6565a5-4f66-42f3-a627-0ca23046dfe4
 content-type: application/json
 
  {
@@ -28,5 +30,8 @@ content-type: application/json
  }
 ###
 
-DELETE {{url}}/products?id=b7d44b43-5ecc-4f9f-88e1-844994c8a829
+
+DELETE {{url}}/products?id=90c65b5f-362c-4883-b491-e813065916ed
+Authorization: {{id_token}}
+Content-Type: application/json
 ###

@@ -1,4 +1,6 @@
+import { Authorizer } from 'aws-cdk-lib/aws-apigateway'
 import { handler } from '../src/services/products/handler'
+import { AuthService } from './AuthService'
 
 //hello lambda
 // handler({} as any, {} as any)
@@ -74,6 +76,55 @@ import { handler } from '../src/services/products/handler'
 //     queryStringParameters: {
 //       id: 'b7d44b43-5ecc-4f9f-88e1-844994c8a829',
 //     },
+//     headers: {
+//       Authorization:
+//         ['admins'],
+//     },
 //   } as any,
 //   {} as any
 // )
+
+
+const user = {
+  username: 'lenis33218@hdrlog.com',
+  password: 'TestPassword123%',
+}
+
+async function testAuthAndDelete() {
+  // Instantiate AuthService
+  const service = new AuthService()
+
+  // Login user
+  const loginResult = await service.login(user)
+  console.log(loginResult)
+
+  // Obtain and log token
+  const {accessToken, idToken} = await service.getTokens()
+  
+  console.log(idToken)
+  
+  // Call DELETE handler with authorization token
+  if (idToken) {
+    // Assuming authorizer is properly initialized and attached
+    await handler(
+      {
+        httpMethod: 'DELETE',
+        queryStringParameters: {
+          id: 'a44376bc-0a6d-4ff5-b82d-a8c2c1b7cb78',
+        },
+        headers: {
+          Authorization: idToken, // Include authorization token in headers
+        },
+      } as any,
+      {} as any
+    )
+  } else {
+    console.error('Authorizer is not properly initialized or attached.')
+  }
+  
+}
+
+// Call testAuthAndDelete function
+testAuthAndDelete()
+
+

@@ -35,12 +35,19 @@ async function handler(
         break
       case 'DELETE':
         const deleteResponse = await deleteProduct(event, ddbClient)
+        console.log(deleteResponse)
+        console.log('Delete response');
+        
         response = deleteResponse
         break
       default:
         break
     }
   } catch (error) {
+    console.log(error);
+    console.log('error is');
+    
+    
     if (error instanceof MissingFieldError) {
       return {
         statusCode: 400,

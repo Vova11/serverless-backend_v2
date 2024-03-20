@@ -29,7 +29,6 @@ export class ApiStack extends Stack {
         identitySource: 'method.request.header.Authorization',
       }
     )
-    authorizer._attachToApi(api)
 
     const optionsWithAuth: MethodOptions = {
       authorizationType: AuthorizationType.COGNITO,
@@ -37,6 +36,9 @@ export class ApiStack extends Stack {
         authorizerId: authorizer.authorizerId,
       },
     }
+
+    // Attach the authorizer to your API Gateway
+    authorizer._attachToApi(api)
 
     const productsResource = api.root.addResource('products')
     productsResource.addMethod('GET', props.productsLambdaIntegration)

@@ -1,17 +1,25 @@
-
 import { Amplify } from 'aws-amplify'
-import { fetchAuthSession, getCurrentUser, signIn, type SignInInput } from 'aws-amplify/auth'
 
+import {
+  fetchAuthSession,
+  getCurrentUser,
+  signIn,
+  type SignInInput,
+} from 'aws-amplify/auth'
+import { CognitoIdentityClient } from '@aws-sdk/client-cognito-identity'
+import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers'
 
 Amplify.configure({
   Auth: {
     Cognito: {
-      userPoolId: 'eu-central-1_8PlanC4RS',
-      userPoolClientId: 'iop3oa2enuo9h0n9k4ehnid9t',
+      userPoolId: 'eu-central-1_QEu3Nvq6D',
+      userPoolClientId: '3qvjs44mia8qtmmgo6l9h23u1e',
+      identityPoolId: 'eu-central-1:d4b141a7-ed5e-4929-99b5-bf0cfd60bf8d',
     },
   },
 })
 
+const awsRegion = 'eu-central-1'
 
 export class AuthService {
   public userName: string
@@ -26,28 +34,43 @@ export class AuthService {
           authFlowType: 'USER_PASSWORD_AUTH',
         },
       })
-      console.log(result)
-
       return result
     } catch (error) {
       console.log('Error je')
-
-      console.log(error instanceof Error)
-      console.log(error.message)
-
-      console.log('error signing in', error)
       return undefined
     }
   }
 
   public async getCurrentUserInfo() {
     const { username, userId, signInDetails } = await getCurrentUser()
+    console.log(signInDetails)
 
     return { username, userId, signInDetails }
   }
 
   public async getTokens() {
     const { accessToken, idToken } = (await fetchAuthSession()).tokens ?? {}
-    return idToken?.toString() // Return the token from the method
+    console.log('Access Token')
+    return { accessToken, idToken } // Return the token from the method
+  }
+
+  public async generateTemporaryCredentials(user) {
+    if (user.isSignedIn !== true) {
+      return new Error('User is not signed in')
+    }
+
+    const { idToken } = await this.getTokens()
+
+    const cognitoIdentityPool = `cognito-idp.${awsRegion}.amazonaws.com/eu-central-1_QEu3Nvq6D`
+    const cognitoIdentity = new CognitoIdentityClient({
+      credentials: fromCognitoIdentityPool({
+        identityPoolId: 'eu-central-1:d4b141a7-ed5e-4929-99b5-bf0cfd60bf8d',
+        logins: {
+          [cognitoIdentityPool]: idToken.toString(),
+        },
+      }),
+    })
+    const credentials = await cognitoIdentity.config.credentials()
+    return credentials
   }
 }
