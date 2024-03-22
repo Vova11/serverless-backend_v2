@@ -73,13 +73,13 @@ export class AuthStack extends Stack {
       removalPolicy: RemovalPolicy.DESTROY,
     })
 
-    new CfnOutput(this, 'ProductsUserPoolId', {
+    new CfnOutput(this, `${ESHOP_NAME}-UserPoolId`, {
       value: this.userPool.userPoolId,
     })
   }
   private createUserPoolClient() {
     this.userPoolClient = this.userPool.addClient(
-      `${ESHOP_NAME}UserPoolClient`,
+      `${ESHOP_NAME}-UserPoolClient`,
       {
         enableTokenRevocation: true,
         accessTokenValidity: Duration.minutes(60),
@@ -94,12 +94,13 @@ export class AuthStack extends Stack {
           flows: {
             authorizationCodeGrant: true,
           },
+          logoutUrls: ['http://localhost:5173/'], // TODO Add your logout URL here
           scopes: [OAuthScope.EMAIL, OAuthScope.OPENID, OAuthScope.PROFILE],
           callbackUrls: ['http://localhost:5173'],
         },
       }
     )
-    new CfnOutput(this, 'ProductUserPoolClientId', {
+    new CfnOutput(this, `${ESHOP_NAME}-UserPoolClientId`, {
       value: this.userPoolClient.userPoolClientId,
     })
   }
@@ -132,7 +133,7 @@ export class AuthStack extends Stack {
         ],
       }
     )
-    new CfnOutput(this, `${ESHOP_NAME}IdentityPoolId`, {
+    new CfnOutput(this, `${ESHOP_NAME}-IdentityPoolId`, {
       value: this.identityPool.ref,
     })
   }

@@ -2,8 +2,10 @@ import { Stack, StackProps } from 'aws-cdk-lib'
 import {
   AuthorizationType,
   CognitoUserPoolsAuthorizer,
+  Cors,
   LambdaIntegration,
   MethodOptions,
+  ResourceOptions,
   RestApi,
 } from 'aws-cdk-lib/aws-apigateway'
 import { IUserPool } from 'aws-cdk-lib/aws-cognito'
@@ -37,15 +39,23 @@ export class ApiStack extends Stack {
       },
     }
 
+     const optionsWithCors: ResourceOptions = {
+       defaultCorsPreflightOptions: {
+         allowOrigins: Cors.ALL_ORIGINS,
+         allowMethods: Cors.ALL_METHODS,
+       },
+     }
+
     // Attach the authorizer to your API Gateway
     authorizer._attachToApi(api)
 
-    const productsResource = api.root.addResource('products')
+    const productsResource = api.root.addResource('products', optionsWithCors)
     productsResource.addMethod('GET', props.productsLambdaIntegration)
     productsResource.addMethod(
       'POST',
       props.productsLambdaIntegration,
-      optionsWithAuth
+      optionsWithAuth,
+      
     )
     productsResource.addMethod(
       'PUT',

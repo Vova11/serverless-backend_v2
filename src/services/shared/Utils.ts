@@ -6,6 +6,14 @@ export function createRandomId() {
   return randomUUID()
 }
 
+export function addCorsHeader(arg: APIGatewayProxyResult) {
+  if (!arg.headers) {
+    arg.headers = {}
+  }
+  arg.headers['Access-Control-Allow-Origin'] = '*' // Put website name
+  arg.headers['Access-Control-Allow-Methods'] = '*' // Put website name
+}
+
 export function parseJSON(arg: string) {
   try {
     return JSON.parse(arg)
@@ -15,9 +23,8 @@ export function parseJSON(arg: string) {
 }
 
 export function hasAdminGroup(event: APIGatewayProxyEvent) {
-  // const groups = event.Authorization requestContext.authorizer?.claims['cognito:groups']
   const groups = event.headers['Authorization']['payload']['cognito:groups']
-  
+
   if (groups) {
     return (groups as string).includes('admins')
   }

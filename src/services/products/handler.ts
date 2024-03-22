@@ -9,7 +9,7 @@ import { JsonError, MissingFieldError } from '../shared/Validator'
 import { updateProduct } from './UpadteProduct'
 import { getProducts } from './GetProducts'
 import { postProducts } from './PostProducts'
-
+import { addCorsHeader } from '../shared/Utils'
 
 const ddbClient = new DynamoDBClient({})
 
@@ -35,19 +35,12 @@ async function handler(
         break
       case 'DELETE':
         const deleteResponse = await deleteProduct(event, ddbClient)
-        console.log(deleteResponse)
-        console.log('Delete response');
-        
         response = deleteResponse
         break
       default:
         break
     }
   } catch (error) {
-    console.log(error);
-    console.log('error is');
-    
-    
     if (error instanceof MissingFieldError) {
       return {
         statusCode: 400,
@@ -65,10 +58,8 @@ async function handler(
       body: JSON.stringify('Caught an unknown error:', error.message),
     }
   }
-
+  addCorsHeader(response)
   return response
 }
 
-
 export { handler }
-
