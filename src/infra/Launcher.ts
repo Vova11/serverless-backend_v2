@@ -11,7 +11,9 @@ const dataStack = new DataStack(app, 'DataStack')
 const lambdaStack = new LambdaStack(app, 'LambdaStack', {
   productsTable: dataStack.productsTable,
 })
-const authStack = new AuthStack(app, 'AuthStack')
+const authStack = new AuthStack(app, 'AuthStack', {
+  photosBucket: dataStack.photosBucket,
+})
 new ApiStack(app, 'ApiStack', {
   helloLambdaIntegration: lambdaStack.helloLambdaIntegration,
   productsLambdaIntegration: lambdaStack.productsLambdaIntegration,

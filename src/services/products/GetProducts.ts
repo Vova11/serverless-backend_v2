@@ -120,20 +120,18 @@ export async function getProducts(
       }
     }
   }
-  console.log('tu si scanning all');
-  
+  console.log('Get back all products with title and price only');
   const result = await ddbClient.send(
     new ScanCommand({
       TableName: process.env.TABLE_NAME!,
+      ProjectionExpression: 'id, title, price', // Specify the attributes you want to retrieve
     })
   )
-  console.log(result.Items);
   
-
   const unmarshalledProducts = result.Items?.map((product) =>
     unmarshall(product)
   )
-  console.log(unmarshalledProducts)
+  
   return {
     statusCode: 201,
     body: JSON.stringify(unmarshalledProducts),

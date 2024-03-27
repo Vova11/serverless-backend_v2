@@ -24,6 +24,10 @@ import {
 } from 'aws-cdk-lib/aws-iam'
 import { IBucket } from 'aws-cdk-lib/aws-s3'
 
+interface AuthStackProps extends StackProps {
+  photosBucket: IBucket
+}
+
 export class AuthStack extends Stack {
   public userPool: UserPool
   private userPoolClient: UserPoolClient
@@ -32,13 +36,13 @@ export class AuthStack extends Stack {
   private unAuthenticatedRole: Role
   private adminRole: Role
 
-  constructor(scope: Construct, id: string, props?: StackProps) {
+  constructor(scope: Construct, id: string, props: AuthStackProps) {
     super(scope, id, props)
 
     this.createUserPool()
     this.createUserPoolClient()
     this.createIdentityPool()
-    this.createRoles()
+    this.createRoles(props.photosBucket)
     this.attachRoles()
     this.createAmdinsGroup()
   }
@@ -120,25 +124,21 @@ export class AuthStack extends Stack {
   }
 
   private createIdentityPool() {
-    this.identityPool = new CfnIdentityPool(
-      this,
-      `${ESHOP_NAME}IdentityPool`,
-      {
-        allowUnauthenticatedIdentities: true,
-        cognitoIdentityProviders: [
-          {
-            clientId: this.userPoolClient.userPoolClientId,
-            providerName: this.userPool.userPoolProviderName,
-          },
-        ],
-      }
-    )
+    this.identityPool = new CfnIdentityPool(this, `${ESHOP_NAME}IdentityPool`, {
+      allowUnauthenticatedIdentities: true,
+      cognitoIdentityProviders: [
+        {
+          clientId: this.userPoolClient.userPoolClientId,
+          providerName: this.userPool.userPoolProviderName,
+        },
+      ],
+    })
     new CfnOutput(this, `${ESHOP_NAME}-IdentityPoolId`, {
       value: this.identityPool.ref,
     })
   }
 
-  private createRoles() {
+  private createRoles(photosBucket: IBucket) {
     this.authenticatedRole = new Role(this, 'CognitoDefaultAuthenticatedRole', {
       assumedBy: new FederatedPrincipal(
         'cognito-identity.amazonaws.com',
@@ -188,8 +188,10 @@ export class AuthStack extends Stack {
     this.adminRole.addToPolicy(
       new PolicyStatement({
         effect: Effect.ALLOW,
-        actions: ['s3:ListAllMyBuckets'],
-        resources: ['*'],
+        // actions: ['s3:ListAllMyBuckets', 's3:ListBucket'],
+        actions: ['s3:PutObject', 's3:PutObjectAcl'],
+        // resources: ['*'], // BAD practice
+        resources: [photosBucket.bucketArn + '/*'],
       })
     )
   }
