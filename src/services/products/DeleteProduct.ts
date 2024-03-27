@@ -34,12 +34,9 @@ export async function deleteProduct(
     console.log(process.env.TABLE_NAME)
     console.log('Table name')
     
-    
-    
-    
     await ddbClient.send(
       new DeleteItemCommand({
-        TableName: process.env.TABLE_NAME,
+        TableName: 'ProductTable-02f15be65655',
         Key: {
           id: { S: productId },
         },
