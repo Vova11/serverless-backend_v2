@@ -6,7 +6,7 @@ import {
 } from 'aws-lambda'
 import { deleteProduct } from './DeleteProduct'
 import { JsonError, MissingFieldError } from '../shared/Validator'
-import { updateProduct } from './UpadteProduct'
+import { updateProduct } from './UpdateProduct'
 import { getProducts } from './GetProducts'
 import { postProducts } from './PostProducts'
 import { addCorsHeader } from '../shared/Utils'
@@ -53,6 +53,8 @@ async function handler(
         body: JSON.stringify(error.message),
       }
     }
+    console.log(error);
+    
     return {
       statusCode: 500,
       body: JSON.stringify('Caught an unknown error:', error.message),

@@ -12,9 +12,9 @@ import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers'
 Amplify.configure({
   Auth: {
     Cognito: {
-      userPoolId: 'eu-central-1_9NpACpJbF',
-      userPoolClientId: '77u1dr1qklo1cc8lrlepmt05bs',
-      identityPoolId: 'eu-central-1:dc4c1ff3-e29b-4c75-b8ae-8bda0aba5cc6',
+      userPoolId: 'eu-central-1_KFz4BnPrG',
+      userPoolClientId: '1qf88u7tnikuak70dg89taqktd',
+      identityPoolId: 'eu-central-1:e46c43b6-884c-4bb7-ba97-90959bd5bb4e',
     },
   },
 })

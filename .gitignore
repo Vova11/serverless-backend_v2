@@ -71,6 +71,9 @@ typings/
 # Serverless directories
 .serverless/
 
+#test vscode
+.vsode/
+
 # DynamoDB Local files
 .dynamodb/
 

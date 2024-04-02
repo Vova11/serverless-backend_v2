@@ -49,10 +49,6 @@ export class DataStack extends Stack {
         name: 'id',
         type: AttributeType.STRING,
       },
-      sortKey: {
-        name: 'title', // Sort key
-        type: AttributeType.STRING,
-      },
       tableName: `ProductTable-${suffix}`,
       removalPolicy: RemovalPolicy.DESTROY,
     })

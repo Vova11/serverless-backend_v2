@@ -15,15 +15,15 @@ import { AuthService } from './AuthService'
 // )
 
 //GET ONE
-handler(
-  {
-    httpMethod: 'GET',
-    queryStringParameters: {
-      id: 'c88ae9b3-b7d6-46d6-aef1-924f7a5445b0',
-    },
-  } as any,
-  {} as any
-)
+// handler(
+//   {
+//     httpMethod: 'GET',
+//     queryStringParameters: {
+//       id: 'c88ae9b3-b7d6-46d6-aef1-924f7a5445b0',
+//     },
+//   } as any,
+//   {} as any
+// )
 
 
 //GET FEATURED
@@ -61,19 +61,27 @@ handler(
 // })
 
 
+const product = {
+  title: 'Veliddd',
+  price: '1222',
+}
+
 //UPDATE
-// handler(
-//   {
-//     httpMethod: 'PUT',
-//     queryStringParameters: {
-//       id: 'b7d44b43-5ecc-4f9f-88e1-844994c8a829',
-//     },
-//     body: JSON.stringify({
-//       price: '11.01'
-//     })
-//   } as any
-  
-// )
+handler(
+  {
+    httpMethod: 'PUT',
+    queryStringParameters: {
+      id: 'c4b0be20-c329-4c36-83ed-d29dbe2f0b0e',
+    },
+    body: JSON.stringify({
+      title: 'Veliddd',
+      price: '1222',
+    }),
+  } as any,
+  {} as any
+).then((result) => {
+  console.log(result)
+})
 
 
 //DELETE
