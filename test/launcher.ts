@@ -62,8 +62,8 @@ import { AuthService } from './AuthService'
 
 
 const product = {
-  title: 'Veliddd',
-  price: '1222',
+  title: 'Fuck',
+  price: '4500',
 }
 
 //UPDATE
@@ -71,12 +71,9 @@ handler(
   {
     httpMethod: 'PUT',
     queryStringParameters: {
-      id: 'c4b0be20-c329-4c36-83ed-d29dbe2f0b0e',
+      id: '39095bfb-8a74-490e-9254-68ee7d',
     },
-    body: JSON.stringify({
-      title: 'Veliddd',
-      price: '1222',
-    }),
+    body: JSON.stringify(product),
   } as any,
   {} as any
 ).then((result) => {

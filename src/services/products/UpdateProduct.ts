@@ -35,10 +35,11 @@ export const update = async (tableName, Item, pk, ddbClient) => {
     UpdateExpression: updateExpression,
     ExpressionAttributeNames: ExpressionAttributeNames,
     ExpressionAttributeValues: ExpressionAttributeValues,
+    // Add a ConditionExpression to ensure the item exists before updating
+    ConditionExpression: 'attribute_exists(id)', // Assuming 'id' is your primary key
   }
 
   const result = await ddbClient.send(new UpdateCommand(params))
-  console.log(result)
 
   return result
 }
@@ -73,17 +74,26 @@ export async function updateProduct(
       editedItemId,
       ddbClient
     )
-
+    console.log(result);
+    console.log('result')
     return {
       statusCode: 200,
       body: JSON.stringify({ msg: 'Item updated successfully' }),
     }
   } catch (error) {
-    console.error('Error updating item:', error)
-
+    // Handle the case where the item does not exist
+    if (error.name === 'ConditionalCheckFailedException') {
+      // Item with the provided primary key does not exist
+      console.error('Item does not exist:', error.message)
+      return {
+        statusCode: 404,
+        body: JSON.stringify({ error: error.name }),
+      }
+      // Handle accordingly, such as returning an error or performing some other action
+    } 
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Internal Server Error' }),
+      body: JSON.stringify({ error: error.name }),
     }
   }
 }
