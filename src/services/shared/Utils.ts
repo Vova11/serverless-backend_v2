@@ -21,12 +21,22 @@ export function parseJSON(arg: string) {
     throw new JsonError(error.message)
   }
 }
-
 export function hasAdminGroup(event: APIGatewayProxyEvent) {
-  const groups = event.headers['Authorization']['payload']['cognito:groups']
-
-  if (groups) {
-    return (groups as string).includes('admins')
+  const groups = event.requestContext.authorizer?.claims['cognito:groups']
+  console.log(typeof groups);
+  console.log('groups are');
+  
+  if (typeof groups === 'string' && groups.includes('admin')) {
+    console.log('User is in the "admin" group.')
+    // Proceed with admin-specific logic
+    return true
+  } else {
+    console.log(
+      'User is not in the "admin" group or groups claim is not a string.'
+    )
+    return false
+    // Handle non-admin users or invalid groups claim
   }
-  return false
+
 }
+

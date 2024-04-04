@@ -13,6 +13,7 @@ import {
   OAuthScope,
   UserPool,
   UserPoolClient,
+  VerificationEmailStyle,
 } from 'aws-cdk-lib/aws-cognito'
 import { Construct } from 'constructs'
 import { ESHOP_NAME } from '../../../env'
@@ -72,6 +73,14 @@ export class AuthStack extends Stack {
         requireLowercase: true,
         requireUppercase: true,
         requireDigits: true,
+      },
+      userVerification: {
+        emailSubject: 'Verify your email for our awesome app!',
+        emailBody:
+          'Hello {username}, Thanks for signing up to our awesome app! Your verification code is {####}',
+        emailStyle: VerificationEmailStyle.CODE,
+        smsMessage:
+          'Hello {username}, Thanks for signing up to our awesome app! Your verification code is {####}',
       },
       accountRecovery: AccountRecovery.EMAIL_ONLY,
       removalPolicy: RemovalPolicy.DESTROY,

@@ -14,29 +14,43 @@ export async function deleteProduct(
 ): Promise<APIGatewayProxyResult> {
   console.log('Deleteing object!!');
   
-  console.log(event)
-  console.log('Authorizer')
-  
-  
-  
-  
-  if(!hasAdminGroup(event)) {
-    return {
-      statusCode: 401,
-      body: JSON.stringify('Not authorized to perform delete'),
-    }
+
+if (!hasAdminGroup(event)) {
+  return {
+    statusCode: 401,
+    body: JSON.stringify(`Not authorized!`),
   }
+}
+
+//  const groups = event.headers['Authorization']['payload']['cognito:groups']
+//  console.log(groups);
+//  if (!groups.includes('admin')) {
+//      return {
+//        statusCode: 401,
+//        body: JSON.stringify('Not authorized to perform delete'),
+//      }
+//  }
+ 
+  
+  
+  
+  
+  // if(!hasAdminGroup(event)) {
+  //   return {
+  //     statusCode: 401,
+  //     body: JSON.stringify('Not authorized to perform delete'),
+  //   }
+  // }
+
+  
+  
 
   if (event.queryStringParameters && 'id' in event.queryStringParameters) {
     const productId = event.queryStringParameters['id']
-    console.log(productId)
-    console.log('Product ID');
-    console.log(process.env.TABLE_NAME)
-    console.log('Table name')
     
     await ddbClient.send(
       new DeleteItemCommand({
-        TableName: 'ProductTable-02f15be65655',
+        TableName: process.env.TABLE_NAME,
         Key: {
           id: { S: productId },
         },
@@ -45,7 +59,7 @@ export async function deleteProduct(
 
     return {
       statusCode: 200,
-      body: JSON.stringify(`Deleted space with id ${productId}`),
+      body: JSON.stringify(`Deleted product with id ${productId}`),
     }
   }
   return {
