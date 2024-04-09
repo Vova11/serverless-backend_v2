@@ -77,10 +77,8 @@ export class AuthStack extends Stack {
       userVerification: {
         emailSubject: 'Verify your email for our awesome app!',
         emailBody:
-          'Hello {username}, Thanks for signing up to our awesome app! Your verification code is {####}',
+          'Hello, Thanks for signing up to our awesome app! Your verification code is {####}cd',
         emailStyle: VerificationEmailStyle.CODE,
-        smsMessage:
-          'Hello {username}, Thanks for signing up to our awesome app! Your verification code is {####}',
       },
       accountRecovery: AccountRecovery.EMAIL_ONLY,
       removalPolicy: RemovalPolicy.DESTROY,
@@ -98,7 +96,6 @@ export class AuthStack extends Stack {
         accessTokenValidity: Duration.minutes(60),
         refreshTokenValidity: Duration.days(1),
         authFlows: {
-          adminUserPassword: true,
           userPassword: true,
           userSrp: true,
         },
