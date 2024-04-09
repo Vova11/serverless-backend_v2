@@ -9,8 +9,10 @@ import { getSuffixFromStack } from '../Utils'
 import { S3Origin } from 'aws-cdk-lib/aws-cloudfront-origins'
 import { ESHOP_NAME } from '../../../env'
 
+// New deployment
+// www.luminis.eu/blog/hosting-a-static-react-website-on-amazon-s3-with-cdk/
 
-export class UiDeploymentStack extends Stack {
+https: export class UiDeploymentStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props)
 
@@ -21,15 +23,7 @@ export class UiDeploymentStack extends Stack {
       removalPolicy: RemovalPolicy.DESTROY,
     })
 
-    const uiDir = join(
-      __dirname,
-      '..',
-      '..',
-      '..',
-      '..',
-      'frontend',
-      'dist'
-    )
+    const uiDir = join(__dirname, '..', '..', '..', '..', 'frontend', 'dist')
 
     if (!existsSync(uiDir)) {
       console.warn('Ui directory not found: ' + uiDir)
@@ -43,19 +37,22 @@ export class UiDeploymentStack extends Stack {
     new CfnOutput(this, `${ESHOP_NAME}-ui-deploymentS3Url`, {
       value: deploymentBucket.bucketWebsiteUrl,
     })
-    
-    const originIdentity = new OriginAccessIdentity(this, 'OriginAccessIdentity')
+
+    const originIdentity = new OriginAccessIdentity(
+      this,
+      'OriginAccessIdentity'
+    )
     deploymentBucket.grantRead(originIdentity)
     const distribution = new Distribution(this, `${ESHOP_NAME}-Distribution`, {
       defaultRootObject: 'index.html',
       defaultBehavior: {
         origin: new S3Origin(deploymentBucket, {
-          originAccessIdentity: originIdentity
-        })
-      }
+          originAccessIdentity: originIdentity,
+        }),
+      },
     })
     new CfnOutput(this, `${ESHOP_NAME}-Url`, {
-      value: distribution.distributionDomainName
+      value: distribution.distributionDomainName,
     })
   }
 }
