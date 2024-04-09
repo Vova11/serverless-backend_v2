@@ -5,5 +5,6 @@ export interface ProductEntry {
   price: number
   featured: number
   stock: number
+  isOnStock: number
   photoUrl?: string
 }

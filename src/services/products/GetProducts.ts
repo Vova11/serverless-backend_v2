@@ -17,6 +17,9 @@ export async function getProducts(
   if (event.queryStringParameters) {
     if ('id' in event.queryStringParameters) {
       const productId = event.queryStringParameters['id']
+      console.log('Tu si');
+      console.log(productId)
+      
       const getProductResponse = await ddbClient.send(
         new GetItemCommand({
           TableName: process.env.TABLE_NAME!,
@@ -120,20 +123,18 @@ export async function getProducts(
       }
     }
   }
-  console.log('tu si scanning all');
-  
+  console.log('Get back all products with title and price only');
   const result = await ddbClient.send(
     new ScanCommand({
       TableName: process.env.TABLE_NAME!,
+      ProjectionExpression: 'id, title, price, photoUrl', // Specify the attributes you want to retrieve
     })
   )
-  console.log(result.Items);
   
-
   const unmarshalledProducts = result.Items?.map((product) =>
     unmarshall(product)
   )
-  console.log(unmarshalledProducts)
+  
   return {
     statusCode: 201,
     body: JSON.stringify(unmarshalledProducts),

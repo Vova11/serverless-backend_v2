@@ -1,27 +1,46 @@
 
-@url = https://n1ng6nhfb2.execute-api.eu-central-1.amazonaws.com/prod
+@url =  https://vx49zk2api.execute-api.eu-central-1.amazonaws.com/prod/
+@id_token = eyJraWQiOiJHWHhXTUlzSnE1VWJZbGxnTkZPeXFGMzlEZU52TTN1SGRtVHorNTYyT3M4PSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJkODZiODNlYy0wMzY1LTQxYWItOTZmOS0yMzI2ZTQ1ZGJjNGUiLCJjb2duaXRvOmdyb3VwcyI6WyJhZG1pbnMiXSwiZW1haWxfdmVyaWZpZWQiOnRydWUsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC5ldS1jZW50cmFsLTEuYW1hem9uYXdzLmNvbVwvZXUtY2VudHJhbC0xX0dqTk1vVlFnaiIsImNvZ25pdG86dXNlcm5hbWUiOiJkODZiODNlYy0wMzY1LTQxYWItOTZmOS0yMzI2ZTQ1ZGJjNGUiLCJnaXZlbl9uYW1lIjoiVm92YSIsIm9yaWdpbl9qdGkiOiIzNzFhMzY3Yi0wODU4LTQ3OWUtOTIwNS0xZDVmY2E0YmMzZGYiLCJjb2duaXRvOnJvbGVzIjpbImFybjphd3M6aWFtOjo5Mzk2MDE2MTcwNDE6cm9sZVwvQXV0aFN0YWNrLUNvZ25pdG9BZG1pblJvbGU0QzEwRkJBNC15YUFCNXVSNkltUk8iXSwiYXVkIjoiM2ptbzE1bGkwMTJrM3JlZ241b2NibWN0ZWMiLCJldmVudF9pZCI6ImNiMDhhNWZjLThlMTEtNGNlZS1iOTg4LTQ2MmQ5MWRkZDZkMyIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNzEyMjI4Njk2LCJleHAiOjE3MTIyMzIyOTYsImlhdCI6MTcxMjIyODY5NiwiZmFtaWx5X25hbWUiOiJaZW0iLCJqdGkiOiI5YzA3NTNkMy04MTZlLTRjNDItODBlNS0zNjVhZDk3ZDUzOWUiLCJlbWFpbCI6Im1lYmFjODEwODZAZmVsaWJnLmNvbSJ9.I0qfV1OpggSBMLSGZRd4XuKr3o7IqdYMd2NNdLvg9uMe1QDtxJ5Drm2X-FSD3IyvjQsKt3SHjsOQJFzT_o7cYZ8lHp51CRdU6orTjozpyxcSU2Dvbud9fEk9e_tExrGdLuZ9iB4wmgHo8b00Rv2ovKuq27vq8PUwIoQlqat4gRTOrmLN6Q2SVLmuDN4FyAbiwB3rEijEQrnh20f15D-u-DVFNHtNK91UFbzDJ0dGi_ogL8noFySl7zXo_kFtKkMHSIPHKgk704aFQA668OhquEr3ntB4PuvU9evIwHB2XLbMQenvSKT6vfu77xQK0xSzHVBCuQpyJnmVeTaPlFCu7g
+
 
 GET {{url}}/products
 ###
 
+///* Bellow is idToken token */
 POST {{url}}/products
+Authorization: {{id_token}}
+Content-Type: application/json
+
+{
+  "title": "p#Produkt2",
+  "description": "Des5ription of product 2",
+  "price": 3.10,
+  "stock": 2,
+  "featured": 1,
+  "isOnStock": 1
+}
+//isOnStock 1 is on stock
+//featured 1 is on stock
+###
+
+PUT {{url}}/products?id=ff1c7572-30dc-416a-ae9e-ee1ff5de7227
+Authorization: {{id_token}}
 content-type: application/json
 
  {
-    "title": "Produkt 3",
-    "description": "Description of product 3",
-    "price": "11",
-    "featured": "1"
+    "price": "2300",
+    "title": "p#lajno"
  }
 ###
 
-PUT {{url}}/products?id=b7d44b43-5ecc-4f9f-88e1-844994c8a829
+
+DELETE {{url}}/products?id=ff1c7572-30dc-416a-ae9e-ee1ff5de7227
+Authorization: {{id_token}}
+Content-Type: application/json
+###
+
+
+GET {{url}}/products?id=ff1c7572-30dc-416a-ae9e-ee1ff5de7227
+Authorization: {{id_token}}
 content-type: application/json
-
- {
-    "price": "345"
- }
-###
-
-DELETE {{url}}/products?id=b7d44b43-5ecc-4f9f-88e1-844994c8a829
 ###
