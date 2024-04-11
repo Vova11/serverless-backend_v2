@@ -12,7 +12,7 @@ import { ESHOP_NAME } from '../../../env'
 // New deployment
 // www.luminis.eu/blog/hosting-a-static-react-website-on-amazon-s3-with-cdk/
 
-https: export class UiDeploymentStack extends Stack {
+export class UiDeploymentStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props)
 
