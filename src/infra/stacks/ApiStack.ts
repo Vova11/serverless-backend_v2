@@ -54,19 +54,19 @@ export class ApiStack extends Stack {
     productsResource.addMethod(
       'POST',
       props.productsLambdaIntegration,
-      optionsWithAuth,
+      // optionsWithAuth,
       
     )
     productsResource.addMethod(
       'PUT',
       props.productsLambdaIntegration,
-      optionsWithAuth
+      // optionsWithAuth
     )
 
     productsResource.addMethod(
       'DELETE',
       props.productsLambdaIntegration,
-      optionsWithAuth
+      // optionsWithAuth
     )
   }
 }

@@ -30,13 +30,14 @@ export const update = async (tableName, Item, pk, ddbClient) => {
   const params = {
     TableName: tableName,
     Key: {
-      id: pk,
+      PK: pk,
+      SK: pk,
     },
     UpdateExpression: updateExpression,
     ExpressionAttributeNames: ExpressionAttributeNames,
     ExpressionAttributeValues: ExpressionAttributeValues,
     // Add a ConditionExpression to ensure the item exists before updating
-    ConditionExpression: 'attribute_exists(id)', // Assuming 'id' is your primary key
+    ConditionExpression: 'attribute_exists(PK)', // Assuming 'id' is your primary key
   }
 
   const result = await ddbClient.send(new UpdateCommand(params))
@@ -55,8 +56,10 @@ export async function updateProduct(
     }
   }
 
-  const editedItemId = event.queryStringParameters['id']
-
+  const productId = event.queryStringParameters['pk']
+  const editedItemId = `p#${productId}`
+  console.log(editedItemId);
+  console.log('id ktore sa updejtuje')
   if (!editedItemId) {
     return {
       statusCode: 400,

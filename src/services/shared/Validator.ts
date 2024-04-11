@@ -9,7 +9,7 @@ export class MissingFieldError extends Error {
 export class JsonError extends Error {}
 
 export function validateAsProductEntry(arg: any) {
-  const requiredFields = ['title', 'price', 'id']
+  const requiredFields = ['title']
 
   for (const field of requiredFields) {
     if (arg[field] === undefined) {

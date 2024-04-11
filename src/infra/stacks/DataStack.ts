@@ -1,8 +1,20 @@
 import { CfnOutput, RemovalPolicy, Stack, StackProps } from 'aws-cdk-lib'
-import { AttributeType, BillingMode, ITable, ProjectionType, Table } from 'aws-cdk-lib/aws-dynamodb'
+import {
+  AttributeType,
+  BillingMode,
+  ITable,
+  ProjectionType,
+  Table,
+} from 'aws-cdk-lib/aws-dynamodb'
 import { Construct } from 'constructs'
 import { getSuffixFromStack } from '../Utils'
-import { Bucket, BucketAccessControl, HttpMethods, IBucket, ObjectOwnership } from 'aws-cdk-lib/aws-s3'
+import {
+  Bucket,
+  BucketAccessControl,
+  HttpMethods,
+  IBucket,
+  ObjectOwnership,
+} from 'aws-cdk-lib/aws-s3'
 import { ESHOP_NAME } from '../../../env'
 
 export class DataStack extends Stack {
@@ -44,9 +56,13 @@ export class DataStack extends Stack {
       value: this.photosBucket.bucketName,
     })
 
-    this.productsTable = new Table(this, 'ProductsTable', {
+    this.productsTable = new Table(this, 'OnlineShop', {
       partitionKey: {
-        name: 'id',
+        name: 'PK',
+        type: AttributeType.STRING,
+      },
+      sortKey: {
+        name: 'SK',
         type: AttributeType.STRING,
       },
       tableName: `ProductTable-${suffix}`,
@@ -54,10 +70,23 @@ export class DataStack extends Stack {
     })
 
     this.productsTable.addGlobalSecondaryIndex({
-      indexName: 'FeaturedIndex',
+      indexName: 'GSI_IsFeatured',
       partitionKey: {
-        name: 'featured',
-        type: AttributeType.NUMBER,
+        name: 'isFeatured',
+        type: AttributeType.STRING,
+      },
+      projectionType: ProjectionType.ALL, // Adjust projection type based on your needs
+    })
+
+    this.productsTable.addGlobalSecondaryIndex({
+      indexName: 'GSI_PublishedProduct',
+      partitionKey: {
+        name: 'entity',
+        type: AttributeType.STRING,
+      },
+      sortKey: {
+        name: 'published',
+        type: AttributeType.STRING,
       },
       projectionType: ProjectionType.ALL, // Adjust projection type based on your needs
     })

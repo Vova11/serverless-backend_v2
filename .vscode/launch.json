@@ -12,7 +12,7 @@
       "args": ["${relativeFile}"],
       "env": {
         "AWS_REGION": "eu-central-1",
-        "TABLE_NAME": "ProductTable-0abd2bfcc927"
+        "TABLE_NAME": "ProductTable-06d5972c4691"
       }
     }
   ]

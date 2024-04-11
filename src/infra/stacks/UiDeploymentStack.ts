@@ -11,8 +11,10 @@ import { ESHOP_NAME } from '../../../env'
 
 // New deployment
 // www.luminis.eu/blog/hosting-a-static-react-website-on-amazon-s3-with-cdk/
+// andrewevans.dev/blog/2023-02-21-deploy-a-react-app-with-the-aws-cdk/
 
-https: export class UiDeploymentStack extends Stack {
+
+export class UiDeploymentStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props)
 
@@ -29,12 +31,12 @@ https: export class UiDeploymentStack extends Stack {
       console.warn('Ui directory not found: ' + uiDir)
       return
     }
-    new BucketDeployment(this, `${ESHOP_NAME}-ui-deployment`, {
+    new BucketDeployment(this, `${ESHOP_NAME}uideployment`, {
       destinationBucket: deploymentBucket,
       sources: [Source.asset(uiDir)],
     })
     // Export the bucket website URL
-    new CfnOutput(this, `${ESHOP_NAME}-ui-deploymentS3Url`, {
+    new CfnOutput(this, `${ESHOP_NAME}uideploymentS3Url`, {
       value: deploymentBucket.bucketWebsiteUrl,
     })
 
@@ -43,7 +45,7 @@ https: export class UiDeploymentStack extends Stack {
       'OriginAccessIdentity'
     )
     deploymentBucket.grantRead(originIdentity)
-    const distribution = new Distribution(this, `${ESHOP_NAME}-Distribution`, {
+    const distribution = new Distribution(this, `${ESHOP_NAME}Distribution`, {
       defaultRootObject: 'index.html',
       defaultBehavior: {
         origin: new S3Origin(deploymentBucket, {

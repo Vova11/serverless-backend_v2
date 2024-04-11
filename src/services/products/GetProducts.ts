@@ -13,18 +13,22 @@ export async function getProducts(
 ): Promise<APIGatewayProxyResult> {
   console.log('Calling getProducts!!!')
   console.log(event)
-
+  console.log(event.queryStringParameters)
+  console.log(event.queryStringParameters)
+  
   if (event.queryStringParameters) {
-    if ('id' in event.queryStringParameters) {
-      const productId = event.queryStringParameters['id']
+    if ('pk' in event.queryStringParameters) {
+      const productId = event.queryStringParameters['pk']
+      const productPK = `p#${productId}`
       console.log('Tu si');
-      console.log(productId)
+      
       
       const getProductResponse = await ddbClient.send(
         new GetItemCommand({
           TableName: process.env.TABLE_NAME!,
           Key: {
-            id: { S: productId },
+            PK: { S: productPK },
+            SK: { S: productPK },
           },
         })
       )
@@ -44,17 +48,17 @@ export async function getProducts(
       }
     } else if ('featured' in event.queryStringParameters) {
       const isFeatured = event.queryStringParameters['featured']
-      console.log('isFeatured' + isFeatured)
+      console.log('isFeatured ' + isFeatured)
 
       try {
         // Perform the DynamoDB query
         const queryResponse = await ddbClient.send(
           new QueryCommand({
             TableName: process.env.TABLE_NAME,
-            IndexName: 'FeaturedIndex',
-            KeyConditionExpression: 'featured = :isFeatured',
+            IndexName: 'GSI_IsFeatured',
+            KeyConditionExpression: 'isFeatured = :isFeatured',
             ExpressionAttributeValues: {
-              ':isFeatured': { N: isFeatured },
+              ':isFeatured': { S: isFeatured }, // Wrap the value in an object with the appropriate data type
             },
           })
         )
@@ -123,14 +127,19 @@ export async function getProducts(
       }
     }
   }
-  console.log('Get back all products with title and price only');
+  
   const result = await ddbClient.send(
-    new ScanCommand({
-      TableName: process.env.TABLE_NAME!,
-      ProjectionExpression: 'id, title, price, photoUrl', // Specify the attributes you want to retrieve
+    new QueryCommand({
+      TableName: process.env.TABLE_NAME,
+      IndexName: 'GSI_PublishedProduct',
+      KeyConditionExpression: 'entity = :pk AND published = :sk',
+      ExpressionAttributeValues: {
+        ':pk': { S: 'product' },
+        ':sk': { S: 'yes' },
+      },
     })
   )
-  
+    
   const unmarshalledProducts = result.Items?.map((product) =>
     unmarshall(product)
   )

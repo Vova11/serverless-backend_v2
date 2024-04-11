@@ -15,15 +15,15 @@ import { AuthService } from './AuthService'
 // )
 
 //GET ONE
-// handler(
-//   {
-//     httpMethod: 'GET',
-//     queryStringParameters: {
-//       id: 'c88ae9b3-b7d6-46d6-aef1-924f7a5445b0',
-//     },
-//   } as any,
-//   {} as any
-// )
+handler(
+  {
+    httpMethod: 'GET',
+    queryStringParameters: {
+      pk: 'p#95871434-eecb-4ff0-8c57-68fe6171b0ee',
+    },
+  } as any,
+  {} as any
+)
 
 
 //GET FEATURED
@@ -52,10 +52,14 @@ import { AuthService } from './AuthService'
 // handler({
 //   httpMethod: 'POST', 
 //   body: JSON.stringify({
-//     title: 'Product 9',
+//     itemType: 'category', // Add itemType field
+//     PK: 'cat#art', // Replace with actual category
+//     name: "produkt 1",
+//     category: "cat#art",
+//     price: 22.02,
+//     title: 'cool product',
 //     description: "Description of product 6",
-//     price: "8.9",
-//     featured: "1"
+//     GSI_PK_featured: "yes"
 // })} as any, {} as any).then(result => {
 //   console.log(result);
 // })
@@ -98,54 +102,54 @@ import { AuthService } from './AuthService'
 // )
 
 
-const user = {
-  username: 'mebac81086@felibg.com',
-  password: 'TestPassword123%',
-}
+// const user = {
+//   username: 'mebac81086@felibg.com',
+//   password: 'TestPassword123%',
+// }
 
-async function testAuthAndDelete() {
-  // Instantiate AuthService
-  const service = new AuthService()
+// async function testAuthAndDelete() {
+//   // Instantiate AuthService
+//   const service = new AuthService()
 
-  // Login user
-  const loginResult = await service.login(user)
-  console.log(loginResult)
+//   // Login user
+//   const loginResult = await service.login(user)
+//   console.log(loginResult)
 
-  // Obtain and log token
-  const {accessToken, idToken} = await service.getTokens()
+//   // Obtain and log token
+//   const {accessToken, idToken} = await service.getTokens()
   
-  console.log(idToken.payload['cognito:groups'])
-  console.log('idToken is');
+//   console.log(idToken.payload['cognito:groups'])
+//   console.log('idToken is');
 
-  console.log(accessToken.payload["cognito:groups"])
-  console.log('access Token is')
+//   console.log(accessToken.payload["cognito:groups"])
+//   console.log('access Token is')
   
-  console.log(idToken.toString())
-  console.log('id token string');
+//   console.log(idToken.toString())
+//   console.log('id token string');
   
   
-  // Call DELETE handler with authorization token
-  if (idToken) {
-    // Assuming authorizer is properly initialized and attached
-    await handler(
-      {
-        httpMethod: 'DELETE',
-        queryStringParameters: {
-          id: 'ff1c7572-30dc-416a-ae9e-ee1ff5de7227',
-        },
-        headers: {
-          Authorization: idToken.toString(), // Include authorization token in headers
-        },
-      } as any,
-      {} as any
-    )
-  } else {
-    console.error('Authorizer is not properly initialized or attached.')
-  }
+//   // Call DELETE handler with authorization token
+//   if (idToken) {
+//     // Assuming authorizer is properly initialized and attached
+//     await handler(
+//       {
+//         httpMethod: 'DELETE',
+//         queryStringParameters: {
+//           id: 'ff1c7572-30dc-416a-ae9e-ee1ff5de7227',
+//         },
+//         headers: {
+//           Authorization: idToken.toString(), // Include authorization token in headers
+//         },
+//       } as any,
+//       {} as any
+//     )
+//   } else {
+//     console.error('Authorizer is not properly initialized or attached.')
+//   }
   
-}
+// }
 
-// Call testAuthAndDelete function
-testAuthAndDelete()
+// // Call testAuthAndDelete function
+// testAuthAndDelete()
 
 

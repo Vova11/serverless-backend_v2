@@ -37,7 +37,10 @@ export class LambdaStack extends Stack {
      productsLambda.addToRolePolicy(
        new PolicyStatement({
          effect: Effect.ALLOW,
-         resources: [props.productsTable.tableArn],
+         resources: [
+           props.productsTable.tableArn,
+           `${props.productsTable.tableArn}/index/*`, // GSI ARN
+         ],
          actions: [
            'dynamodb:PutItem',
            'dynamodb:Scan',

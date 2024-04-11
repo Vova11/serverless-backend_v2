@@ -4,6 +4,7 @@ import { ApiStack } from './stacks/ApiStack'
 import { DataStack } from './stacks/DataStack'
 import { AuthStack } from './stacks/AuthStack'
 import { UiDeploymentStack } from './stacks/UiDeploymentStack'
+import { StaticSiteStack } from './stacks/StaticSiteStack'
 
 
 const app = new App()
@@ -20,3 +21,4 @@ new ApiStack(app, 'ApiStack', {
   userPool: authStack.userPool
 })
 new UiDeploymentStack(app, 'UiDeploymentStack')
+// new StaticSiteStack(app, 'StaticSiteStack')

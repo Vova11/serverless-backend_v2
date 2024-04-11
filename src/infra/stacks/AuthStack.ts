@@ -105,7 +105,7 @@ export class AuthStack extends Stack {
         },
       }
     )
-    new CfnOutput(this, `${ESHOP_NAME}-UserPoolClientId`, {
+    new CfnOutput(this, `${ESHOP_NAME}UserPoolClientId`, {
       value: this.userPoolClient.userPoolClientId,
     })
   }
